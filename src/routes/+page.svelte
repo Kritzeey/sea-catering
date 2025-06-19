@@ -1,5 +1,7 @@
 <script lang="ts">
-  let message = $state("Hello World");
+  import Hero from "$lib/components/hero.svelte";
 </script>
 
-<main>{message}</main>
+<main>
+  <Hero />
+</main>
