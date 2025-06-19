@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from "./button.svelte";
+  import { Utensils } from "@lucide/svelte";
 </script>
 
 <div class="flex h-dvh w-full items-center justify-center">
@@ -14,7 +15,9 @@
     </div>
     <div class="flex gap-4">
       <Button variant="primary">
-        <span class="font-bold"> Get Started </span>
+        <span class="flex gap-4 font-bold">
+          <Utensils /> Get Started
+        </span>
       </Button>
 
       <Button variant="secondary">
