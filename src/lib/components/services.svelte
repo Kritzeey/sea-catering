@@ -41,7 +41,10 @@
   ];
 </script>
 
-<div class="flex h-dvh flex-col items-center justify-center gap-8">
+<div
+  id="services"
+  class="flex h-dvh flex-col items-center justify-center gap-8"
+>
   <div class="text-primary text-4xl font-bold">Why Choose SEA?</div>
   <div class="mx-auto grid w-full max-w-5xl grid-cols-3 gap-6">
     {#each services as service}
