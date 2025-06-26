@@ -20,9 +20,11 @@
         </span>
       </Button>
 
-      <Button variant="secondary">
-        <span class="font-bold"> Our Menu </span>
-      </Button>
+      <a href="/menu">
+        <Button variant="secondary">
+          <span class="font-bold"> Our Menu </span>
+        </Button>
+      </a>
     </div>
   </div>
 </div>
