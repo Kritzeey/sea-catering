@@ -54,17 +54,19 @@
 </div>
 
 {#snippet card(service: Service)}
-  <div
-    class="border-primary col-span-1 flex flex-col gap-4 rounded-2xl border-4 p-4"
-  >
+  <div class="col-span-1 flex flex-col gap-4 rounded-2xl bg-white p-4">
     <div class="relative h-40 overflow-hidden rounded-xl">
       <div
-        class="mx-auto flex h-full w-full items-center justify-center text-white"
+        class="absolute z-100 mx-auto flex h-full w-full items-center justify-center text-white"
       >
-        <service.icon size={56} />
+        <div
+          class="text-primary flex items-center justify-center rounded-md bg-white p-4"
+        >
+          <service.icon size={36} />
+        </div>
       </div>
       <img
-        class="absolute top-0 -z-50 blur-xs"
+        class="absolute top-0 z-50 blur-xs"
         src={service.image}
         alt={service.text}
       />

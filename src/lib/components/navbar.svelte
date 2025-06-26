@@ -4,7 +4,7 @@
 </script>
 
 <nav
-  class="fixed top-0 z-50 h-16 w-full border-b border-white/30 bg-white/5 backdrop-blur-md"
+  class="fixed top-0 z-200 h-16 w-full border-b border-white/30 bg-white/5 backdrop-blur-md"
 >
   <div
     class="mx-auto flex h-full w-full max-w-6xl items-center justify-between"
