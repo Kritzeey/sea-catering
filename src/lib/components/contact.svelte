@@ -62,8 +62,7 @@
         <textarea
           placeholder="Your Message"
           class="border-foreground/30 h-full w-full rounded-sm border p-2 px-4"
-        >
-        </textarea>
+        ></textarea>
         <div class="flex w-full justify-center">
           <Button type="submit">
             <div class="flex items-center justify-center gap-4 font-semibold">
