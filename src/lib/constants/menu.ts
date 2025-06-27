@@ -1,4 +1,4 @@
-interface Menu {
+export interface Menu {
   name: string;
   image: string;
   description: string;
@@ -16,7 +16,7 @@ interface Menu {
   allergens?: string[];
 }
 
-const healthyMenu: Menu[] = [
+export const healthyMenu: Menu[] = [
   {
     name: "Grilled Lemon Herb Salmon",
     image:
@@ -373,5 +373,3 @@ const healthyMenu: Menu[] = [
     },
   },
 ];
-
-export default healthyMenu;
