@@ -1,6 +1,8 @@
 <script lang="ts">
   import { TreePine } from "@lucide/svelte";
   import Button from "./button.svelte";
+
+  let active = $state("home");
 </script>
 
 <nav
@@ -12,16 +14,41 @@
     <a
       href="/"
       class="text-primary flex h-full items-center justify-center gap-4 text-2xl font-bold"
+      onclick={() => (active = "home")}
     >
       <TreePine /> SEA Catering
     </a>
     <div class="flex gap-8">
-      <a href="#about" class="col-span-1">About</a>
-      <a href="#services" class="col-span-1">Services</a>
-      <a href="#contact" class="col-span-1">Contact</a>
+      <a
+        class:active={active === "menu"}
+        onclick={() => (active = "menu")}
+        id="menu"
+        href="/menu"
+        class="col-span-1 border-[2px] border-transparent">Menu</a
+      >
+      <a
+        class:active={active === "subscription"}
+        onclick={() => (active = "subscription")}
+        id="subscription"
+        href="/subscription"
+        class="col-span-1 border-[2px] border-transparent">Subscription</a
+      >
+      <a
+        class:active={active === "contact"}
+        onclick={() => (active = "contact")}
+        id="contact"
+        href="/contact"
+        class="col-span-1 border-[2px] border-transparent">Contact</a
+      >
     </div>
     <div>
       <Button>Login</Button>
     </div>
   </div>
 </nav>
+
+<style>
+  .active {
+    border-bottom: 2px solid #2c7537;
+  }
+</style>

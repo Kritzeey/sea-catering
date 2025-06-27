@@ -1,7 +1,6 @@
 <script lang="ts">
   import { testimonials, type Testimony } from "$lib/constants/testimony";
   import { ArrowBigLeft, ArrowBigRight, Quote } from "@lucide/svelte";
-  import { render } from "svelte/server";
 
   let selectedTestimony = $state(1);
 
