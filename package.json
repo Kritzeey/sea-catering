@@ -39,6 +39,8 @@
   "dependencies": {
     "@lucide/svelte": "^0.518.0",
     "@prisma/client": "^6.10.1",
-    "class-variance-authority": "^0.7.1"
+    "@types/node": "^24.0.7",
+    "class-variance-authority": "^0.7.1",
+    "ts-node": "^10.9.2"
   }
 }
