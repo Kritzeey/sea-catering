@@ -1,6 +1,6 @@
 <script>
   import Button from "$lib/components/button.svelte";
-  import { Eye, EyeClosed, Lock, User } from "@lucide/svelte";
+  import { AtSign, Eye, EyeClosed, Lock, User } from "@lucide/svelte";
 
   let showPassword = $state(false);
 </script>
@@ -13,15 +13,15 @@
       Welcome Back!
     </span>
     <div class="flex w-full flex-col gap-4">
-      <label for="username"> Username </label>
+      <label for="email"> Email </label>
       <div class="relative w-full">
         <input
-          type="text"
-          id="username"
-          placeholder="Username..."
+          type="email"
+          id="email"
+          placeholder="Email..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
         />
-        <User class="absolute top-[25%] left-4" />
+        <AtSign class="absolute top-[25%] left-4" />
       </div>
     </div>
     <div class="flex w-full flex-col gap-4">
