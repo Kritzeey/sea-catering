@@ -60,3 +60,7 @@ export function deleteSessionTokenCookie(event: RequestEvent) {
     path: "/",
   });
 }
+
+export async function getUserFromId(sessionId: string) {
+  return await prisma.user.findUnique({ where: { id: sessionId } });
+}
