@@ -1,6 +1,6 @@
 <script>
   import Button from "$lib/components/button.svelte";
-  import { AtSign, Eye, EyeClosed, Lock, User } from "@lucide/svelte";
+  import { AtSign, Eye, EyeClosed, Lock } from "@lucide/svelte";
 
   let showPassword = $state(false);
 </script>
