@@ -42,7 +42,9 @@
       >
     </div>
     <div>
-      <Button>Login</Button>
+      <a href="/login">
+        <Button>Login</Button>
+      </a>
     </div>
   </div>
 </nav>
