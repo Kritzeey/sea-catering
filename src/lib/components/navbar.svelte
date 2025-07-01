@@ -1,8 +1,15 @@
 <script lang="ts">
   import { TreePine } from "@lucide/svelte";
   import Button from "./button.svelte";
+  import { onMount } from "svelte";
 
   let active = $state("home");
+
+  let { data } = $props();
+
+  onMount(() => {
+    console.log(data.user.firstName);
+  });
 </script>
 
 <nav
@@ -41,10 +48,18 @@
         class="col-span-1 border-[2px] border-transparent">Contact</a
       >
     </div>
-    <div>
-      <a href="/login">
-        <Button>Login</Button>
-      </a>
+
+    <div class="flex items-center gap-4">
+      {#if data.user}
+        <span class="hidden sm:inline">Hi, {data.user.firstName}!</span>
+        <form action="/logout" method="post">
+          <Button variant="primary">Logout</Button>
+        </form>
+      {:else}
+        <a href="/login">
+          <Button>Login</Button>
+        </a>
+      {/if}
     </div>
   </div>
 </nav>

@@ -1,12 +1,12 @@
 <script lang="ts">
   import Navbar from "$lib/components/navbar.svelte";
-  import "../../app.css";
+  import "../app.css";
 
-  let { children } = $props();
+  let { data, children } = $props();
 </script>
 
 <main>
-  <Navbar />
+  <Navbar {data} />
 
   {@render children()}
 </main>

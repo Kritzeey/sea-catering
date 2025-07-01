@@ -8,7 +8,7 @@
   let showPassword = $state(false);
 </script>
 
-<div class="flex h-dvh items-center justify-center">
+<div class="m-4 flex h-full min-h-dvh items-center justify-center">
   <form
     use:enhance
     method="post"

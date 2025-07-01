@@ -57,6 +57,6 @@ export const actions: Actions = {
 
     setSessionTokenCookie(event, token, session.expiresAt);
 
-    return redirect(302, "/dashboard");
+    throw redirect(302, "/dashboard");
   },
 };
