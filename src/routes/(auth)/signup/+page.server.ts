@@ -1,57 +1,56 @@
 import prisma from "$lib/server/db/prisma";
 import { fail, type Actions } from "@sveltejs/kit";
 import * as bcrypt from "bcrypt";
+import { z } from "zod";
+
+const schema = z
+  .object({
+    firstName: z.string().trim().min(1, "Please fill in this field"),
+    lastName: z.string().trim().optional(),
+    email: z.string().trim().email("Please provide a valid email"),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Password must contain an uppercase character")
+      .regex(/[a-z]/, "Password must contain a lowercase character")
+      .regex(/\d/, "Password must contain a number")
+      .regex(/[@$!%*?&]/, "Password must contain a special character"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+type RegisterFormErrors = z.inferFlattenedErrors<typeof schema>["fieldErrors"];
 
 export const actions: Actions = {
   default: async (event) => {
-    const data = await event.request.formData();
+    const formData = await event.request.formData();
 
-    const email = data.get("email");
-    const password = data.get("password");
-    const firstName = data.get("firstName");
-    const confirmPassword = data.get("confirmPassword");
+    const data = Object.fromEntries(formData);
 
-    let errorFlag = false;
+    const validation = schema.safeParse(data);
 
-    let errors = {
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-      confirmPassword: "",
-    };
-
-    if (!email) {
-      errors.email = "Please fill in this field";
-      errorFlag = true;
+    if (!validation.success) {
+      return fail(400, {
+        errors: validation.error.flatten().fieldErrors,
+      });
     }
 
-    if (!password) {
-      errors.password = "Please fill in this field";
-      errorFlag = true;
-    }
-
-    if (!confirmPassword) {
-      errors.confirmPassword = "Please fill in this field";
-      errorFlag = true;
-    }
-
-    if (!firstName || firstName.toString().trim().length < 1) {
-      errors.firstName = "Please fill in this field";
-      errorFlag = true;
-    }
-
-    if (errorFlag) {
-      return fail(400, { errors });
-    }
+    const { email, firstName, lastName, password } = validation.data;
 
     const existingUser = await prisma.user.findUnique({
-      where: { email: data.get("email")?.toString() },
+      where: { email },
     });
 
+    const errors: RegisterFormErrors = { email: ["Email is not available"] };
+
     if (existingUser) {
-      errors.email = "Email is not available";
-      return fail(400, { errors });
+      return fail(400, {
+        errors,
+        data: { firstName, lastName, email },
+      });
     }
 
     const hash = await bcrypt.hash(password!.toString(), 10);

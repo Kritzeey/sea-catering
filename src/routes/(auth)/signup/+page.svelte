@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import Button from "$lib/components/button.svelte";
   import { AtSign, Eye, EyeClosed, Lock, User } from "@lucide/svelte";
 
@@ -29,8 +30,9 @@
   );
 </script>
 
-<div class="flex h-dvh items-center justify-center">
+<div class="m-4 flex h-full min-h-dvh items-center justify-center">
   <form
+    use:enhance
     method="post"
     class="mx-auto flex w-full max-w-xl flex-col gap-4 rounded-2xl bg-white px-8 py-6 shadow-xs"
   >
@@ -48,12 +50,12 @@
             id="firstName"
             placeholder="First Name..."
             class="h-12 w-full rounded-3xl border p-4 px-12"
-            class:text-red-500={form?.errors.firstName && !firstName}
+            class:text-red-500={form?.errors.firstName}
           />
           <User class="absolute top-[25%] left-4" />
         </div>
-        {#if form?.errors.firstName && !firstName}
-          <span class="text-sm text-red-500">{form.errors.firstName}</span>
+        {#if form?.errors.firstName}
+          <span class="text-sm text-red-500">{form.errors.firstName[0]}</span>
         {/if}
       </div>
       <div class="col-span-1 flex flex-col gap-4">
@@ -66,12 +68,12 @@
             id="lastName"
             placeholder="Last Name..."
             class="h-12 w-full rounded-3xl border p-4 px-12"
-            class:text-red-500={form?.errors.lastName && !lastName}
+            class:text-red-500={form?.errors.lastName}
           />
           <User class="absolute top-[25%] left-4" />
         </div>
-        {#if form?.errors.email && !lastName}
-          <span class="text-sm text-red-500">{form.errors.lastName}</span>
+        {#if form?.errors.lastName}
+          <span class="text-sm text-red-500">{form.errors.lastName[0]}</span>
         {/if}
       </div>
     </div>
@@ -89,8 +91,8 @@
         />
         <AtSign class="absolute top-[25%] left-4" />
       </div>
-      {#if form?.errors.email && !email}
-        <span class="text-sm text-red-500">{form.errors.email}</span>
+      {#if form?.errors.email}
+        <span class="text-sm text-red-500">{form.errors.email[0]}</span>
       {/if}
     </div>
     <div class="flex w-full flex-col gap-4">
@@ -103,9 +105,7 @@
           id="password"
           placeholder="Password..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
-          class:text-red-500={((password && !validPassword) ||
-            form?.errors.password) &&
-            !password}
+          class:text-red-500={form?.errors.password}
         />
         <Lock class="absolute top-[25%] left-4" />
         {#if showPassword}
@@ -120,8 +120,8 @@
           />
         {/if}
       </div>
-      {#if form?.errors.password && !password}
-        <span class="text-sm text-red-500">{form.errors.password}</span>
+      {#if form?.errors.password}
+        <span class="text-sm text-red-500">{form.errors.password[0]}</span>
       {/if}
       {#if password && !validPassword}
         <div class="text-red-500">
@@ -158,9 +158,7 @@
           id="confirmPassword"
           placeholder="Confirm Password..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
-          class:text-red-500={(!passwordMatches ||
-            form?.errors.confirmPassword) &&
-            !confirmPassword}
+          class:text-red-500={form?.errors.confirmPassword}
         />
         <Lock class="absolute top-[25%] left-4" />
         {#if showConfirmPassword}
@@ -175,10 +173,9 @@
           />
         {/if}
       </div>
-      {#if form?.errors.confirmPassword && passwordMatches && !confirmPassword}
+      {#if form?.errors.confirmPassword}
         <span class="text-sm text-red-500">{form?.errors.confirmPassword}</span>
-      {/if}
-      {#if !passwordMatches}
+      {:else if !passwordMatches && confirmPassword}
         <span class="text-sm text-red-500">Passwords don't match</span>
       {/if}
     </div>
