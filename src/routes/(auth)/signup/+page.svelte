@@ -30,7 +30,7 @@
   );
 </script>
 
-<div class="m-4 flex h-full min-h-dvh items-center justify-center">
+<div class="flex h-full min-h-dvh items-center justify-center">
   <form
     use:enhance
     method="post"
