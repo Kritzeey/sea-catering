@@ -1,8 +1,5 @@
 ![Banner](./static/banner.svg)
 
-> [!CAUTION]
-> This app is NOT DONE YET. This README file is only for when the app is completed. For now, everything written here is INVALID.
-
 ## ℹ️ About this project
 
 This project is made to complete COMPFEST's 2025 Software Engineering Academy task.
