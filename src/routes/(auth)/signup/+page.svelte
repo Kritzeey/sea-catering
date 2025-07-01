@@ -9,6 +9,9 @@
 
   let password = $state("");
   let confirmPassword = $state("");
+  let firstName = $state("");
+  let lastName = $state("");
+  let email = $state("");
 
   let passwordContainsUppercase = $derived(/[A-Z]/.test(password));
   let passwordContainsLowercase = $derived(/[a-z]/.test(password));
@@ -39,16 +42,17 @@
         <label for="firstName"> First Name* </label>
         <div class="relative w-full">
           <input
+            bind:value={firstName}
             name="firstName"
             type="text"
             id="firstName"
             placeholder="First Name..."
             class="h-12 w-full rounded-3xl border p-4 px-12"
-            class:text-red-500={form?.errors.firstName}
+            class:text-red-500={form?.errors.firstName && !firstName}
           />
           <User class="absolute top-[25%] left-4" />
         </div>
-        {#if form?.errors.firstName}
+        {#if form?.errors.firstName && !firstName}
           <span class="text-sm text-red-500">{form.errors.firstName}</span>
         {/if}
       </div>
@@ -56,16 +60,17 @@
         <label for="lastName"> Last Name </label>
         <div class="relative w-full">
           <input
+            bind:value={lastName}
             name="lastName"
             type="text"
             id="lastName"
             placeholder="Last Name..."
             class="h-12 w-full rounded-3xl border p-4 px-12"
-            class:text-red-500={form?.errors.lastName}
+            class:text-red-500={form?.errors.lastName && !lastName}
           />
           <User class="absolute top-[25%] left-4" />
         </div>
-        {#if form?.errors.email}
+        {#if form?.errors.email && !lastName}
           <span class="text-sm text-red-500">{form.errors.lastName}</span>
         {/if}
       </div>
@@ -74,16 +79,17 @@
       <label for="email"> Email* </label>
       <div class="relative w-full">
         <input
+          bind:value={email}
           name="email"
           type="email"
           id="email"
           placeholder="Email..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
-          class:text-red-500={form?.errors.email}
+          class:text-red-500={form?.errors.email && !email}
         />
         <AtSign class="absolute top-[25%] left-4" />
       </div>
-      {#if form?.errors.email}
+      {#if form?.errors.email && !email}
         <span class="text-sm text-red-500">{form.errors.email}</span>
       {/if}
     </div>
@@ -97,8 +103,9 @@
           id="password"
           placeholder="Password..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
-          class:text-red-500={(password && !validPassword) ||
-            form?.errors.password}
+          class:text-red-500={((password && !validPassword) ||
+            form?.errors.password) &&
+            !password}
         />
         <Lock class="absolute top-[25%] left-4" />
         {#if showPassword}
@@ -151,8 +158,7 @@
           id="confirmpassword"
           placeholder="Confirm Password..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
-          class:text-red-500={(confirmPassword && !passwordMatches) ||
-            form?.errors.confirmPassword}
+          class:text-red-500={!passwordMatches || form?.errors.confirmPassword}
         />
         <Lock class="absolute top-[25%] left-4" />
         {#if showConfirmPassword}
@@ -167,10 +173,10 @@
           />
         {/if}
       </div>
-      {#if form?.errors.confirmPassword}
-        <span class="text-sm text-red-500">{form.errors.confirmPassword}</span>
+      {#if form?.errors.confirmPassword && passwordMatches && !confirmPassword && !confirmPassword}
+        <span class="text-sm text-red-500">{form?.errors.confirmPassword}</span>
       {/if}
-      {#if confirmPassword && !passwordMatches}
+      {#if !passwordMatches}
         <span class="text-sm text-red-500">Passwords don't match</span>
       {/if}
     </div>

@@ -31,6 +31,11 @@ export const actions: Actions = {
       errorFlag = true;
     }
 
+    if (!confirmPassword) {
+      errors.confirmPassword = "Please fill in this field";
+      errorFlag = true;
+    }
+
     if (!firstName || firstName.toString().trim().length < 1) {
       errors.firstName = "Please fill in this field";
       errorFlag = true;
