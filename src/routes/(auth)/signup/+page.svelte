@@ -11,6 +11,7 @@
   let passwordContainsUppercase = $derived(/[A-Z]/.test(password));
   let passwordContainsLowercase = $derived(/[a-z]/.test(password));
   let passwordContainsSpecial = $derived(/[@$!%*?&]/.test(password));
+  let passwordContainsNumber = $derived(/\d/.test(password));
   let passwordLengthOK = $derived(password.length >= 8);
   let passwordMatches = $derived(password === confirmPassword);
 
@@ -18,13 +19,14 @@
     passwordContainsUppercase &&
       passwordContainsLowercase &&
       passwordContainsSpecial &&
+      passwordContainsNumber &&
       passwordLengthOK,
   );
 </script>
 
 <div class="flex h-dvh items-center justify-center">
   <form
-    class="mx-auto flex w-full max-w-xl flex-col gap-8 rounded-2xl bg-white p-8 shadow-xs"
+    class="mx-auto flex w-full max-w-xl flex-col gap-4 rounded-2xl bg-white px-8 py-6 shadow-xs"
   >
     <span class="text-primary w-full text-center text-4xl font-bold">
       Create an Account
@@ -101,6 +103,9 @@
             {#if !passwordContainsLowercase}
               <li class="text-sm text-red-500">• A lowercase character</li>
             {/if}
+            {#if !passwordContainsNumber}
+              <li class="text-sm text-red-500">• A number</li>
+            {/if}
             {#if !passwordContainsSpecial}
               <li class="text-sm text-red-500">
                 • A special character [@$!%*?&]
@@ -137,7 +142,7 @@
           />
         {/if}
       </div>
-      {#if !passwordMatches}
+      {#if confirmPassword && !passwordMatches}
         <span class="text-sm text-red-500">Passwords don't match</span>
       {/if}
     </div>
