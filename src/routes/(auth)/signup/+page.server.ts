@@ -4,7 +4,7 @@ import {
   setSessionTokenCookie,
 } from "$lib/server/auth";
 import prisma from "$lib/server/db/prisma";
-import { fail, type Actions } from "@sveltejs/kit";
+import { fail, redirect, type Actions } from "@sveltejs/kit";
 import * as bcrypt from "bcrypt";
 import { z } from "zod";
 
@@ -73,5 +73,7 @@ export const actions: Actions = {
     const session = await createSession(token, user.id);
 
     setSessionTokenCookie(event, token, session.expiresAt);
+
+    return redirect(302, "/dashboard");
   },
 };
