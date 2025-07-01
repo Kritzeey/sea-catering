@@ -1,3 +1,8 @@
+import {
+  createSession,
+  generateToken,
+  setSessionTokenCookie,
+} from "$lib/server/auth";
 import prisma from "$lib/server/db/prisma";
 import { fail, type Actions } from "@sveltejs/kit";
 import * as bcrypt from "bcrypt";
@@ -62,5 +67,11 @@ export const actions: Actions = {
         password: hash,
       },
     });
+
+    const token = generateToken();
+
+    const session = await createSession(token, user.id);
+
+    setSessionTokenCookie(event, token, session.expiresAt);
   },
 };
