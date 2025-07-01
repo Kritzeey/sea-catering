@@ -120,8 +120,8 @@
           />
         {/if}
       </div>
-      {#if form?.errors.email && !password}
-        <span class="text-sm text-red-500">{form.errors.email}</span>
+      {#if form?.errors.password && !password}
+        <span class="text-sm text-red-500">{form.errors.password}</span>
       {/if}
       {#if password && !validPassword}
         <div class="text-red-500">
@@ -149,16 +149,18 @@
       {/if}
     </div>
     <div class="flex w-full flex-col gap-4">
-      <label for="confirmpassword">Confirm Password* </label>
+      <label for="confirmPassword">Confirm Password* </label>
       <div class="relative w-full">
         <input
-          name="confirmpassword"
+          name="confirmPassword"
           bind:value={confirmPassword}
           type={showConfirmPassword ? "text" : "password"}
-          id="confirmpassword"
+          id="confirmPassword"
           placeholder="Confirm Password..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
-          class:text-red-500={!passwordMatches || form?.errors.confirmPassword}
+          class:text-red-500={(!passwordMatches ||
+            form?.errors.confirmPassword) &&
+            !confirmPassword}
         />
         <Lock class="absolute top-[25%] left-4" />
         {#if showConfirmPassword}
@@ -173,7 +175,7 @@
           />
         {/if}
       </div>
-      {#if form?.errors.confirmPassword && passwordMatches && !confirmPassword && !confirmPassword}
+      {#if form?.errors.confirmPassword && passwordMatches && !confirmPassword}
         <span class="text-sm text-red-500">{form?.errors.confirmPassword}</span>
       {/if}
       {#if !passwordMatches}
