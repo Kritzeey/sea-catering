@@ -21,28 +21,29 @@
       <label for="email"> Email </label>
       <div class="relative w-full">
         <input
+          name="email"
           type="email"
           id="email"
           placeholder="Email..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
-          class:text-red-500={form?.error?.message}
+          class:text-red-500={form?.errors.email}
         />
         <AtSign class="absolute top-[25%] left-4" />
       </div>
       {#if form?.errors?.email}
         <span class="text-sm text-red-500">{form.errors.email[0]}</span>
-      {:else if form?.error?.message}
-        <span class="text-sm text-red-500">{form.error.message[0]}</span>
       {/if}
     </div>
     <div class="flex w-full flex-col gap-4">
       <label for="password"> Password </label>
       <div class="relative w-full">
         <input
+          name="password"
           type={showPassword ? "text" : "password"}
           id="password"
           placeholder="Password..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
+          class:text-red-500={form?.errors?.password}
         />
         <Lock class="absolute top-[25%] left-4" />
         {#if showPassword}
@@ -59,8 +60,6 @@
       </div>
       {#if form?.errors?.password}
         <span class="text-sm text-red-500">{form.errors.password[0]}</span>
-      {:else if form?.error?.message}
-        <span class="text-sm text-red-500">{form.error.message[0]}</span>
       {/if}
     </div>
     <div class="flex w-full justify-center">

@@ -9,9 +9,14 @@ import {
 } from "$lib/server/auth";
 
 const schema = z.object({
-  email: z.string(),
-  password: z.string(),
+  email: z.string().trim().min(1, "Please fill in this field"),
+  password: z.string().trim().min(1, "Please fill in this field"),
 });
+
+const dummyHash =
+  "$2b$10$k7DBVt5lwfER3P/wJplZgexJJ0hO87pYwmc6ljIpte8bLKEgrwf/S";
+
+type LoginFormErrors = z.inferFlattenedErrors<typeof schema>["fieldErrors"];
 
 export const actions: Actions = {
   default: async (event) => {
@@ -31,19 +36,18 @@ export const actions: Actions = {
 
     const user = await prisma.user.findUnique({ where: { email } });
 
-    const error = { message: "Invalid credentials" };
+    const hashToCompare = user ? user.password : dummyHash;
 
-    if (!user) {
+    const valid = await bcrypt.compare(password, hashToCompare);
+
+    const errors: LoginFormErrors = {
+      email: ["Invalid credentials"],
+      password: ["Invalid credentials"],
+    };
+
+    if (!user || !valid) {
       return fail(400, {
-        error,
-      });
-    }
-
-    const valid = await bcrypt.compare(password, user.password);
-
-    if (!valid) {
-      return fail(400, {
-        error,
+        errors,
       });
     }
 
