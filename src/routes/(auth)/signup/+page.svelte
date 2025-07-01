@@ -2,6 +2,8 @@
   import Button from "$lib/components/button.svelte";
   import { AtSign, Eye, EyeClosed, Lock, User } from "@lucide/svelte";
 
+  let { form } = $props();
+
   let showPassword = $state(false);
   let showConfirmPassword = $state(false);
 
@@ -26,6 +28,7 @@
 
 <div class="flex h-dvh items-center justify-center">
   <form
+    method="post"
     class="mx-auto flex w-full max-w-xl flex-col gap-4 rounded-2xl bg-white px-8 py-6 shadow-xs"
   >
     <span class="text-primary w-full text-center text-4xl font-bold">
@@ -33,52 +36,69 @@
     </span>
     <div class="grid grid-cols-2 gap-4">
       <div class="col-span-1 flex flex-col gap-4">
-        <label for="firstname"> First Name </label>
+        <label for="firstName"> First Name* </label>
         <div class="relative w-full">
           <input
+            name="firstName"
             type="text"
-            id="firstname"
+            id="firstName"
             placeholder="First Name..."
             class="h-12 w-full rounded-3xl border p-4 px-12"
+            class:text-red-500={form?.errors.firstName}
           />
           <User class="absolute top-[25%] left-4" />
         </div>
+        {#if form?.errors.firstName}
+          <span class="text-sm text-red-500">{form.errors.firstName}</span>
+        {/if}
       </div>
       <div class="col-span-1 flex flex-col gap-4">
-        <label for="lastname"> Last Name </label>
+        <label for="lastName"> Last Name </label>
         <div class="relative w-full">
           <input
+            name="lastName"
             type="text"
-            id="lastname"
+            id="lastName"
             placeholder="Last Name..."
             class="h-12 w-full rounded-3xl border p-4 px-12"
+            class:text-red-500={form?.errors.lastName}
           />
           <User class="absolute top-[25%] left-4" />
         </div>
+        {#if form?.errors.email}
+          <span class="text-sm text-red-500">{form.errors.lastName}</span>
+        {/if}
       </div>
     </div>
     <div class="flex w-full flex-col gap-4">
-      <label for="email"> Email </label>
+      <label for="email"> Email* </label>
       <div class="relative w-full">
         <input
+          name="email"
           type="email"
           id="email"
           placeholder="Email..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
+          class:text-red-500={form?.errors.email}
         />
         <AtSign class="absolute top-[25%] left-4" />
       </div>
+      {#if form?.errors.email}
+        <span class="text-sm text-red-500">{form.errors.email}</span>
+      {/if}
     </div>
     <div class="flex w-full flex-col gap-4">
-      <label for="password"> Password </label>
+      <label for="password"> Password* </label>
       <div class="relative w-full">
         <input
+          name="password"
           bind:value={password}
           type={showPassword ? "text" : "password"}
           id="password"
           placeholder="Password..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
-          class:text-red-500={password && !validPassword}
+          class:text-red-500={(password && !validPassword) ||
+            form?.errors.password}
         />
         <Lock class="absolute top-[25%] left-4" />
         {#if showPassword}
@@ -93,6 +113,9 @@
           />
         {/if}
       </div>
+      {#if form?.errors.email && !password}
+        <span class="text-sm text-red-500">{form.errors.email}</span>
+      {/if}
       {#if password && !validPassword}
         <div class="text-red-500">
           Password must contain:
@@ -119,15 +142,17 @@
       {/if}
     </div>
     <div class="flex w-full flex-col gap-4">
-      <label for="confirmpassword">Confirm Password </label>
+      <label for="confirmpassword">Confirm Password* </label>
       <div class="relative w-full">
         <input
+          name="confirmpassword"
           bind:value={confirmPassword}
           type={showConfirmPassword ? "text" : "password"}
           id="confirmpassword"
           placeholder="Confirm Password..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
-          class:text-red-500={confirmPassword && !passwordMatches}
+          class:text-red-500={(confirmPassword && !passwordMatches) ||
+            form?.errors.confirmPassword}
         />
         <Lock class="absolute top-[25%] left-4" />
         {#if showConfirmPassword}
@@ -142,6 +167,9 @@
           />
         {/if}
       </div>
+      {#if form?.errors.confirmPassword}
+        <span class="text-sm text-red-500">{form.errors.confirmPassword}</span>
+      {/if}
       {#if confirmPassword && !passwordMatches}
         <span class="text-sm text-red-500">Passwords don't match</span>
       {/if}

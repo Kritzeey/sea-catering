@@ -39,7 +39,9 @@
   "dependencies": {
     "@lucide/svelte": "^0.518.0",
     "@prisma/client": "^6.10.1",
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^24.0.7",
+    "bcrypt": "^6.0.0",
     "class-variance-authority": "^0.7.1",
     "ts-node": "^10.9.2"
   }
