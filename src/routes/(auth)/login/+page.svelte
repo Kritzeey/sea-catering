@@ -3,6 +3,7 @@
   import { AtSign, Eye, EyeClosed, Lock } from "@lucide/svelte";
 
   let showPassword = $state(false);
+  ``;
 </script>
 
 <div class="flex h-dvh items-center justify-center">

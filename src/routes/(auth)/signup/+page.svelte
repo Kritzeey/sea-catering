@@ -78,7 +78,7 @@
       <label for="confirmpassword">Confirm Password </label>
       <div class="relative w-full">
         <input
-          type={showPassword ? "text" : "password"}
+          type={showConfirmPassword ? "text" : "password"}
           id="confirmpassword"
           placeholder="Confirm Password..."
           class="h-12 w-full rounded-3xl border p-4 px-12"
@@ -98,7 +98,7 @@
       </div>
     </div>
     <div class="flex w-full justify-center">
-      <Button>Log in</Button>
+      <Button>Sign Up</Button>
     </div>
     <div class="flex w-full justify-center">
       Already have an account?&nbsp;<a
