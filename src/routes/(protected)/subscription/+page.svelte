@@ -38,12 +38,12 @@
     </div>
     <div class="grid w-full grid-cols-3 gap-4">
       <input
-      class="sr-only"
-      type="radio"
-      name="plan"
-      value="diet"
-      bind:group={selected}
-    />
+        class="sr-only"
+        type="radio"
+        name="plan"
+        value="diet"
+        bind:group={selected}
+      />
       <div
         class:border-primary={selected === "diet"}
         class="border-primary col-span-1 flex h-12 w-full items-center justify-center rounded-xl border p-4"
